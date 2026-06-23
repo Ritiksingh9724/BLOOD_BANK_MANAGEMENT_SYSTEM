@@ -24,7 +24,7 @@ function Analytics() {
 
       const res = await axios.get(
 
-        "http://localhost:5000/api/v1/inventory/all-inventory"
+        "https://blood-management-system-6cgc.onrender.com/api/v1/inventory/all-inventory"
       );
 
       if (res.data.success) {

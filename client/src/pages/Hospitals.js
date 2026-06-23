@@ -35,7 +35,7 @@ function Hospitals() {
 
       const res = await axios.post(
 
-        "http://localhost:5000/api/v1/hospital/create-hospital",
+        "https://blood-management-system-6cgc.onrender.com/api/v1/hospital/create-hospital",
 
         {
           hospitalName,
@@ -75,7 +75,7 @@ function Hospitals() {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/v1/hospital/get-hospitals"
+        "https://blood-management-system-6cgc.onrender.com/api/v1/hospital/get-hospitals"
       );
 
       if (res.data.success) {

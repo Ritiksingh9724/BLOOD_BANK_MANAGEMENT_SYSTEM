@@ -43,7 +43,7 @@ function Requests() {
 
       const res = await axios.post(
 
-        "http://localhost:5000/api/v1/request/create-request",
+        "https://blood-management-system-6cgc.onrender.com/api/v1/request/create-request",
 
         {
           hospitalName,
@@ -92,7 +92,7 @@ function Requests() {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/v1/request/get-requests"
+        "https://blood-management-system-6cgc.onrender.com/api/v1/request/get-requests"
       );
 
       if (res.data.success) {
@@ -121,7 +121,7 @@ function Requests() {
 
         const res = await axios.put(
 
-          `http://localhost:5000/api/v1/request/update-status/${id}`,
+          `https://blood-management-system-6cgc.onrender.com/api/v1/request/update-status/${id}`,
 
           { status }
 
@@ -156,7 +156,7 @@ function Requests() {
     try {
 
       const res = await axios.post(
-        "http://localhost:5000/api/v1/payment/create-order",
+        "https://blood-management-system-6cgc.onrender.com/api/v1/payment/create-order",
         {
           amount: 500,
         }
@@ -182,7 +182,7 @@ function Requests() {
           try {
 
             await axios.put(
-              `http://localhost:5000/api/v1/request/payment/${request._id}`
+              `https://blood-management-system-6cgc.onrender.com/api/v1/request/payment/${request._id}`
             );
             console.log("Request ID:", request._id);
             console.log("Request ID:", request._id);
