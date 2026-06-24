@@ -22,6 +22,11 @@ const userSchema =
         required: true,
       },
 
+      phone: {
+        type: String,
+        default: "",
+      },
+
       role: {
         type: String,
 
@@ -32,6 +37,17 @@ const userSchema =
         ],
 
         default: "donor",
+      },
+
+      // Forgot Password OTP
+
+      otp: {
+        type: String,
+        default: "",
+      },
+
+      otpExpiry: {
+        type: Date,
       },
 
     },
