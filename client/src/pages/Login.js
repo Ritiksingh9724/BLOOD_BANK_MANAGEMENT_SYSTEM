@@ -172,6 +172,11 @@ function Login() {
                 Login
 
               </button>
+              <p>
+                <a href="/forgot-password">
+                  Forgot Password?
+                </a>
+              </p>
 
               {/* register link */}
 

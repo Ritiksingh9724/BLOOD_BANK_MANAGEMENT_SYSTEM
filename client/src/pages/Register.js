@@ -22,6 +22,8 @@ function Register() {
 
       email: "",
 
+      phone: "",
+
       password: "",
 
       role: "donor",
@@ -121,7 +123,15 @@ function Register() {
                 onChange={handleChange}
                 required
               />
-
+              <input
+                type="text"
+                name="phone"
+                placeholder="Enter Phone Number"
+                className="form-control mb-3"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
               {/* password */}
 
               <input

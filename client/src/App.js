@@ -32,6 +32,11 @@ import Analytics from "./pages/Analytics";
 
 import Availability from "./pages/Availability";
 
+import ForgotPassword from "./pages/ForgotPassword";
+
+import VerifyOTP from "./pages/VerifyOTP";
+
+import ResetPassword from "./pages/ResetPassword";
 // protected route
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -153,6 +158,20 @@ function App() {
         <Route
           path="*"
           element={<Navigate to="/" />}
+        />
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />}
+        />
+
+        <Route
+          path="/verify-otp"
+          element={<VerifyOTP />}
+        />
+
+        <Route
+          path="/reset-password"
+          element={<ResetPassword />}
         />
 
       </Routes>
