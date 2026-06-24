@@ -7,7 +7,7 @@ const ForgotPassword = () => {
     const handleSendOTP = async (e) => {
         e.preventDefault();
 
-        const res = await axios.post(
+        await axios.post(
             "https://blood-management-system-6cgc.onrender.com/api/v1/auth/send-otp",
             { email }
         );
