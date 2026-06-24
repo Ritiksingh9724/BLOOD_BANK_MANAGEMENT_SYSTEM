@@ -48,7 +48,7 @@ A full-stack MERN (MongoDB, Express.js, React.js, Node.js) application designed 
 
 ## Login Page
 
-![Login](screenshots/login.png)
+![Login](../blood-management-system/screenshots/login.png)
 
 ---
 
