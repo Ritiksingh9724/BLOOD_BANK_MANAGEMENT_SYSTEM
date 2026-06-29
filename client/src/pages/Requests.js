@@ -43,7 +43,7 @@ function Requests() {
 
       const res = await axios.post(
 
-        "http://localhost:5000/api/v1/request/create-request",
+        "https://blood-management-system-6cgc.onrender.com/api/v1/request/create-request",
 
         {
           hospitalName,
@@ -92,7 +92,7 @@ function Requests() {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/v1/request/get-requests"
+        "https://blood-management-system-6cgc.onrender.com/api/v1/request/get-requests"
       );
 
       if (res.data.success) {
@@ -122,7 +122,7 @@ function Requests() {
         const res = await axios.put(
 
           `
-http://localhost:5000/api/v1/request/update-status/${id}`,
+https://blood-management-system-6cgc.onrender.com/api/v1/request/update-status/${id}`,
 
           { status }
 
@@ -153,88 +153,54 @@ http://localhost:5000/api/v1/request/update-status/${id}`,
   // ============================
 
   const handlePayment = async (request) => {
-
     try {
-
       const res = await axios.post(
-        "http://localhost:5000/api/v1/payment/create-order",
+        "https://blood-management-system-6cgc.onrender.com/api/v1/payment/create-order",
         {
-          amount: 500,
+          units: Number(request.quantity),
         }
       );
 
       const order = res.data.order;
 
       const options = {
-
         key: "rzp_test_T3U6Emm2cOvLxZ",
-
         amount: order.amount,
-
         currency: order.currency,
-
         name: "Blood Bank Management",
-
-        description: "Blood Request Payment",
-
+        description: `${request.quantity} Unit Blood Payment`,
         order_id: order.id,
-        handler: async function (response) {
 
+        handler: async function () {
           try {
-
             await axios.put(
-              `
-http://localhost:5000/api/v1/request/payment/${request._id}`
+              `https://blood-management-system-6cgc.onrender.com/api/v1/request/payment/${request._id}`
             );
-            console.log("Request ID:", request._id);
-            console.log("Request ID:", request._id);
+
             toast.success("Payment Successful");
-
             getRequests();
-
-            console.log(response);
-
           } catch (error) {
-
             console.log(error);
-
             toast.error("Error Updating Payment Status");
-
           }
-
         },
 
         prefill: {
-
           name: hospitalName,
-
           email: user?.email,
-
         },
 
         theme: {
-
           color: "#dc3545",
-
         },
-
       };
 
-      const razor =
-        new window.Razorpay(
-          options
-        );
-
+      const razor = new window.Razorpay(options);
       razor.open();
 
     } catch (error) {
-
       console.log(error);
-
-      toast.error(
-        "Payment Failed"
-      );
-
+      toast.error("Payment Failed");
     }
   };
   // ============================
