@@ -60,7 +60,7 @@ function Donors() {
       const res =
         await axios.post(
 
-          "https://blood-management-system-6cgc.onrender.com/api/v1/donor/add-donor",
+          "http://localhost:5000/api/v1/donor/add-donor",
 
           {
             name,
@@ -117,7 +117,7 @@ function Donors() {
       const res =
         await axios.get(
 
-          "https://blood-management-system-6cgc.onrender.com/api/v1/donor/all-donors"
+          "http://localhost:5000/api/v1/donor/all-donors"
         );
 
       if (res.data.success) {
@@ -150,7 +150,8 @@ function Donors() {
       const res =
         await axios.delete(
 
-          `https://blood-management-system-6cgc.onrender.com/api/v1/donor/delete-donor/${id}`
+          `
+http://localhost:5000/api/v1/donor/delete-donor/${id}`
 
         );
 

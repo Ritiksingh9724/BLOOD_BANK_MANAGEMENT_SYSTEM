@@ -56,7 +56,7 @@ function Register() {
         const res =
           await axios.post(
 
-            "https://blood-management-system-6cgc.onrender.com/api/v1/auth/register",
+            "http://localhost:5000/api/v1/auth/register",
 
             formData
           );
