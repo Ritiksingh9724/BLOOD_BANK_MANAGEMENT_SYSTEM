@@ -46,10 +46,11 @@ function Requests() {
         "https://blood-management-system-6cgc.onrender.com/api/v1/request/create-request",
 
         {
+          hospitalId: user._id,
           hospitalName,
           bloodGroup,
           quantity,
-          email: user?.email,
+          email: user.email,
         }
 
       );
@@ -86,18 +87,17 @@ function Requests() {
   // ============================
   // GET REQUESTS
   // ============================
-
   const getRequests = async () => {
 
     try {
 
+      const user = JSON.parse(localStorage.getItem("user"));
+
       const res = await axios.get(
-        "https://blood-management-system-6cgc.onrender.com/api/v1/request/get-requests"
+        `https://blood-management-system-6cgc.onrender.com/api/v1/request/get-requests?hospitalId=${user._id}&role=${user.role}`
       );
 
       if (res.data.success) {
-
-        console.log("REQUESTS DATA:", res.data.requests);
 
         setRequests(res.data.requests);
 
@@ -109,7 +109,6 @@ function Requests() {
 
     }
   };
-
   // ============================
   // UPDATE STATUS
   // ============================
@@ -491,7 +490,7 @@ https://blood-management-system-6cgc.onrender.com/api/v1/request/update-status/$
                                 className="btn btn-primary btn-sm"
                                 onClick={() => handlePayment(request)}
                               >
-                                Pay ₹500
+                                Pay 
                               </button>
 
                             )

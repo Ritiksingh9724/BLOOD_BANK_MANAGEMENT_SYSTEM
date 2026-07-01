@@ -15,20 +15,14 @@ function Register() {
   const navigate =
     useNavigate();
 
-  const [formData, setFormData] =
-    useState({
-
-      name: "",
-
-      email: "",
-
-      phone: "",
-
-      password: "",
-
-      role: "donor",
-
-    });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    password: "",
+    role: "donor",
+  });
 
   // handle input
 
@@ -131,6 +125,15 @@ function Register() {
                 value={formData.phone}
                 onChange={handleChange}
                 required
+              />
+              <input
+                type="text"
+                name="address"
+                placeholder="Enter Hospital Address"
+                className="form-control mb-3"
+                value={formData.address}
+                onChange={handleChange}
+                required={formData.role === "hospital"}
               />
               {/* password */}
 
