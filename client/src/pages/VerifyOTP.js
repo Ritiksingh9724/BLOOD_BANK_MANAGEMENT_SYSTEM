@@ -14,7 +14,7 @@ const VerifyOTP = () => {
     try {
 
       const res = await axios.post(
-        "https://blood-management-system-6cgc.onrender.com/api/v1/auth/verify-otp",
+        "https://blood-management-system-ivmq.onrender.com/api/v1/auth/verify-otp",
         {
           email,
           otp,
