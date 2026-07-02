@@ -141,38 +141,28 @@ function Donors() {
   // DELETE DONOR
   // =========================
 
-  const deleteDonor = async (id) => {
+ const user = JSON.parse(localStorage.getItem("user"));
 
-    try {
-
-      const res =
-        await axios.delete(
-
-          `
-https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/delete-donor/${id}`
-
-        );
-
-      if (res.data.success) {
-
-        toast.success(
-          "Donor Deleted Successfully"
-        );
-
-        getDonors();
-
+const deleteDonor = async (id) => {
+  try {
+    const res = await axios.delete(
+      `https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/delete-donor/${id}`,
+      {
+        data: {
+          userId: user._id,
+        },
       }
+    );
 
-    } catch (error) {
-
-      console.log(error);
-
-      toast.error(
-        "Error Deleting Donor"
-      );
-
+    if (res.data.success) {
+      toast.success("Donor Deleted Successfully");
+      getDonors();
     }
-  };
+  } catch (error) {
+    console.log(error);
+    toast.error("Error Deleting Donor");
+  }
+};
 
   // =========================
   // EXPORT PDF
