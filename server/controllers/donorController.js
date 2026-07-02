@@ -6,45 +6,43 @@ const Donor =
 // GET ALL DONORS
 // ============================
 
-const getDonorsController =
-  async (req, res) => {
+const getDonorsController = async (req, res) => {
+  try {
 
-    try {
+    let donors;
 
-      const donors =
-        await Donor.find().sort({
-          createdAt: -1,
-        });
-
-      res.status(200).send({
-
-        success: true,
-
-        totalDonors:
-          donors.length,
-
-        donors,
-
+    // Admin sees all donors
+    if (req.user.role === "admin") {
+      donors = await Donor.find().sort({
+        createdAt: -1,
       });
-
-    } catch (error) {
-
-      console.log(error);
-
-      res.status(500).send({
-
-        success: false,
-
-        message:
-          "Error Fetching Donors",
-
-        error,
-
-      });
-
     }
-  };
 
+    // Donor sees only their own donors
+    else {
+      donors = await Donor.find({
+        userId: req.user._id,
+      }).sort({
+        createdAt: -1,
+      });
+    }
+
+    res.status(200).send({
+      success: true,
+      totalDonors: donors.length,
+      donors,
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).send({
+      success: false,
+      message: "Error Fetching Donors",
+      error,
+    });
+  }
+};
 
 // ============================
 // ADD DONOR
@@ -132,57 +130,47 @@ const addDonorController =
 // DELETE DONOR
 // ============================
 
-const deleteDonorController =
-  async (req, res) => {
+const deleteDonorController = async (req, res) => {
+  try {
 
-    try {
+    let donor;
 
-      const { userId } = req.body;
+    // Admin can delete any donor
+    if (req.user.role === "admin") {
 
-      const donor = await Donor.findOneAndDelete({
-        _id: req.params.id,
-        userId,
-      });
+      donor = await Donor.findByIdAndDelete(req.params.id);
 
-      if (!donor) {
+    } else {
 
-        return res.status(404).send({
-
-          success: false,
-
-          message:
-            "Donor Not Found",
-
-        });
-      }
-
-      res.status(200).send({
-
-        success: true,
-
-        message:
-          "Donor Deleted Successfully",
-
-      });
-
-    } catch (error) {
-
-      console.log(error);
-
-      res.status(500).send({
-
+      // Donor cannot delete
+      return res.status(403).send({
         success: false,
-
-        message:
-          "Error Deleting Donor",
-
-        error,
-
+        message: "Only Admin can delete donors",
       });
 
     }
-  };
 
+    if (!donor) {
+      return res.status(404).send({
+        success: false,
+        message: "Donor Not Found",
+      });
+    }
+
+    res.status(200).send({
+      success: true,
+      message: "Donor Deleted Successfully",
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error Deleting Donor",
+      error,
+    });
+  }
+};
 
 // ============================
 // EXPORT

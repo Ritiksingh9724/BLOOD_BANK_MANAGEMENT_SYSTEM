@@ -15,24 +15,25 @@ const {
 
 // GET ALL DONORS
 
+const {
+  requireSignIn,
+} = require("../middleware/authMiddleware");
+
 router.get(
   "/all-donors",
+  requireSignIn,
   getDonorsController
 );
 
-
-// ADD DONOR
-
 router.post(
   "/add-donor",
+  requireSignIn,
   addDonorController
 );
 
-
-// DELETE DONOR
-
 router.delete(
   "/delete-donor/:id",
+  requireSignIn,
   deleteDonorController
 );
 

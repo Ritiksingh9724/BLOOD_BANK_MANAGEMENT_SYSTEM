@@ -15,6 +15,7 @@ import autoTable from "jspdf-autotable";
 
 function Donors() {
   const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
   // form states
 
   const [name, setName] =
@@ -56,19 +57,22 @@ function Donors() {
     e.preventDefault();
 
     try {
-
-      const res =
-        await axios.post(
-          "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/add-donor",
-          {
-            userId: user._id,
-            name,
-            phone,
-            bloodGroup,
-            age,
-            city,
-          }
-        );
+      const res = await axios.post(
+        "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/add-donor",
+        {
+          userId: user._id,
+          name,
+          phone,
+          bloodGroup,
+          age,
+          city,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (res.data.success) {
 
@@ -113,10 +117,14 @@ function Donors() {
 
     try {
 
-      const res =
-        await axios.get(
-          `https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/all-donors?userId=${user._id}`
-        );
+      const res = await axios.get(
+        "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/all-donors",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (res.data.success) {
 
@@ -141,28 +149,26 @@ function Donors() {
   // DELETE DONOR
   // =========================
 
- const user = JSON.parse(localStorage.getItem("user"));
+  const deleteDonor = async (id) => {
+    try {
+      const res = await axios.delete(
+        `https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/delete-donor/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-const deleteDonor = async (id) => {
-  try {
-    const res = await axios.delete(
-      `https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/delete-donor/${id}`,
-      {
-        data: {
-          userId: user._id,
-        },
+      if (res.data.success) {
+        toast.success("Donor Deleted Successfully");
+        getDonors();
       }
-    );
-
-    if (res.data.success) {
-      toast.success("Donor Deleted Successfully");
-      getDonors();
+    } catch (error) {
+      console.log(error);
+      toast.error("Error Deleting Donor");
     }
-  } catch (error) {
-    console.log(error);
-    toast.error("Error Deleting Donor");
-  }
-};
+  };
 
   // =========================
   // EXPORT PDF
@@ -563,18 +569,14 @@ const deleteDonor = async (id) => {
 
                       <td>
 
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() =>
-                            deleteDonor(
-                              donor._id
-                            )
-                          }
-                        >
-
-                          Delete
-
-                        </button>
+                        {user.role === "admin" && (
+                          <button
+                            className="btn btn-danger btn-sm"
+                            onClick={() => deleteDonor(donor._id)}
+                          >
+                            Delete
+                          </button>
+                        )}
 
                       </td>
 
