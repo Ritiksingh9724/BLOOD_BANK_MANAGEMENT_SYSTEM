@@ -70,27 +70,10 @@ A full-stack MERN (MongoDB, Express.js, React.js, Node.js) application designed 
 
 ---
 
-## Donor List
-
-![Donor List](screenshots/donorslist.png)
-
----
 
 ## Hospital Login
 
 ![Hospital Login](screenshots/hospital_login.png)
-
----
-
-## Add Hospital By Admin
-
-![Add Hospital](screenshots/add_hospital_by_admin.png)
-
----
-
-## Blood Request Management
-
-![Request Management](screenshots/request_by_the_hospital.png)
 
 ---
 
