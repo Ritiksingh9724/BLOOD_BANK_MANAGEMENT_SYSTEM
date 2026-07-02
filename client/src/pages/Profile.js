@@ -29,7 +29,7 @@ function Profile() {
 
         const res =
           await axios.put(
-            "http://localhost:5000/api/v1/auth/update-profile",
+            "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/auth/update-profile",
             {
               id: user._id,
               name,

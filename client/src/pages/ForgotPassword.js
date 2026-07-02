@@ -8,7 +8,7 @@ const ForgotPassword = () => {
         e.preventDefault();
 
         await axios.post(
-            "http://localhost:5000/api/v1/auth/send-otp",
+            "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/auth/send-otp",
             { email }
         );
 

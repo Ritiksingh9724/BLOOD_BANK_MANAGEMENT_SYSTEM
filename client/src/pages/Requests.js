@@ -43,7 +43,7 @@ function Requests() {
 
       const res = await axios.post(
 
-        "http://localhost:5000/api/v1/request/create-request",
+        "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/request/create-request",
 
         {
           hospitalId: user._id,
@@ -94,7 +94,7 @@ function Requests() {
       const user = JSON.parse(localStorage.getItem("user"));
 
       const res = await axios.get(
-        `http://localhost:5000/api/v1/request/get-requests?hospitalId=${user._id}&role=${user.role}`
+        `https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/request/get-requests?hospitalId=${user._id}&role=${user.role}`
       );
 
       if (res.data.success) {
@@ -121,7 +121,7 @@ function Requests() {
         const res = await axios.put(
 
           `
-http://localhost:5000/api/v1/request/update-status/${id}`,
+https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/request/update-status/${id}`,
 
           { status }
 
@@ -154,7 +154,7 @@ http://localhost:5000/api/v1/request/update-status/${id}`,
   const handlePayment = async (request) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/v1/payment/create-order",
+        "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/payment/create-order",
         {
           units: Number(request.quantity),
         }
@@ -173,7 +173,7 @@ http://localhost:5000/api/v1/request/update-status/${id}`,
         handler: async function () {
           try {
             await axios.put(
-              `http://localhost:5000/api/v1/request/payment/${request._id}`
+              `https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/request/payment/${request._id}`
             );
 
             toast.success("Payment Successful");

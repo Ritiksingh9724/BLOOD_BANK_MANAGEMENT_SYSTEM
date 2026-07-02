@@ -37,7 +37,7 @@ function Topbar({ toggleSidebar }) {
   const getNotifications = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/notification/${user?._id}`
+        `https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/notification/${user?._id}`
       );
       if (res.data.success) {
         setNotifications(res.data.notifications);
