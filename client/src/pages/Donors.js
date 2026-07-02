@@ -14,7 +14,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
 function Donors() {
-
+  const user = JSON.parse(localStorage.getItem("user"));
   // form states
 
   const [name, setName] =
@@ -59,10 +59,9 @@ function Donors() {
 
       const res =
         await axios.post(
-
           "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/add-donor",
-
           {
+            userId: user._id,
             name,
             phone,
             bloodGroup,
@@ -116,8 +115,7 @@ function Donors() {
 
       const res =
         await axios.get(
-
-          "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/all-donors"
+          `https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/all-donors?userId=${user._id}`
         );
 
       if (res.data.success) {
@@ -255,15 +253,15 @@ https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/dele
 
   const filteredDonors = donors.filter((donor) =>
 
-  donor.name?.toLowerCase().includes(search.toLowerCase()) ||
+    donor.name?.toLowerCase().includes(search.toLowerCase()) ||
 
-  donor.phone?.includes(search) ||
+    donor.phone?.includes(search) ||
 
-  donor.bloodGroup?.toLowerCase().includes(search.toLowerCase()) ||
+    donor.bloodGroup?.toLowerCase().includes(search.toLowerCase()) ||
 
-  donor.city?.toLowerCase().includes(search.toLowerCase())
+    donor.city?.toLowerCase().includes(search.toLowerCase())
 
-);
+  );
 
   // =========================
   // PAGINATION

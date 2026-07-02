@@ -85,20 +85,14 @@ const addDonorController =
 
       // create donor
 
-      const donor =
-        new Donor({
-
-          name,
-
-          bloodGroup,
-
-          age,
-
-          phone,
-
-          city,
-
-        });
+      const donor = new Donor({
+        userId: req.body.userId,
+        name,
+        bloodGroup,
+        age,
+        phone,
+        city,
+      });
 
       // save donor
 
@@ -143,10 +137,12 @@ const deleteDonorController =
 
     try {
 
-      const donor =
-        await Donor.findByIdAndDelete(
-          req.params.id
-        );
+      const { userId } = req.body;
+
+      const donor = await Donor.findOneAndDelete({
+        _id: req.params.id,
+        userId,
+      });
 
       if (!donor) {
 
