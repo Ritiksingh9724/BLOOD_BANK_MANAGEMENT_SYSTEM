@@ -2,27 +2,22 @@ const nodemailer = require("nodemailer");
 
 const sendEmail = async (to, subject, text) => {
   try {
-    console.log("========== EMAIL DEBUG ==========");
-    console.log("TO:", to);
-    console.log("FROM:", process.env.EMAIL);
-
+    console.log("Sending email...");
+    console.log("To:", to);
+    console.log("From:", process.env.EMAIL);
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
       secure: false,
+      family: 4, // Force IPv4
       auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASSWORD,
       },
-      tls: {
-        rejectUnauthorized: false,
-      },
     });
 
-    console.log("Connecting to Gmail...");
-
-    await transporter.verify();
-
+    const verify = await transporter.verify();
+    console.log("VERIFY:", verify);
     console.log("SMTP Connected");
 
     const info = await transporter.sendMail({
@@ -31,11 +26,10 @@ const sendEmail = async (to, subject, text) => {
       subject,
       text,
     });
-
-    console.log("Email Sent:", info.messageId);
-
+    console.log(info);
+    console.log("Email Sent Successfully");
   } catch (error) {
-    console.log("EMAIL ERROR");
+    console.log("EMAIL ERROR:");
     console.log(error);
   }
 };
