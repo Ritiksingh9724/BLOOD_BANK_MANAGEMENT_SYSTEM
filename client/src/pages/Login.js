@@ -125,24 +125,45 @@ function Login() {
     };
 
   return (
-
-    <div className="container mt-5">
-
+  <div
+    className="d-flex justify-content-center align-items-center"
+    style={{
+      minHeight: "100vh",
+      background:
+        "linear-gradient(135deg,#348296,#1e293b)",
+    }}
+  >
+    <div className="container">
       <div className="row justify-content-center">
+        <div className="col-lg-5 col-md-7">
 
-        <div className="col-md-5">
+          <div
+            className="card border-0 shadow-lg p-5"
+            style={{
+              borderRadius: "20px",
+              background: "#1f2937",
+            }}
+          >
+            <div className="text-center mb-4">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/2966/2966484.png"
+                alt="blood"
+                width="80"
+              />
 
-          <div className="card shadow border-0 rounded-4 p-4">
+              <h2
+                className="fw-bold mt-3"
+                style={{ color: "#fff" }}
+              >
+                Blood Bank
+              </h2>
 
-            <h2 className="text-center mb-4 fw-bold">
-
-              Login
-
-            </h2>
+              <p style={{ color: "#cbd5e1" }}>
+                Login to continue
+              </p>
+            </div>
 
             <form onSubmit={handleSubmit}>
-
-              {/* email */}
 
               <input
                 type="email"
@@ -152,9 +173,11 @@ function Login() {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                style={{
+                  height: "50px",
+                  borderRadius: "12px",
+                }}
               />
-
-              {/* password */}
 
               <input
                 type="password"
@@ -164,47 +187,55 @@ function Login() {
                 value={formData.password}
                 onChange={handleChange}
                 required
+                style={{
+                  height: "50px",
+                  borderRadius: "12px",
+                }}
               />
 
-              {/* login button */}
-
-              <button className="btn btn-danger w-100 mb-3">
-
+              <button
+                className="btn btn-danger w-100 mb-3"
+                style={{
+                  height: "50px",
+                  borderRadius: "12px",
+                  fontWeight: "600",
+                }}
+              >
                 Login
-
               </button>
-              <p>
-                <a href="/forgot-password">
+
+              <div className="d-flex justify-content-between">
+
+                <Link
+                  to="/forgot-password"
+                  style={{
+                    color: "#60a5fa",
+                    textDecoration: "none",
+                  }}
+                >
                   Forgot Password?
-                </a>
-              </p>
-
-              {/* register link */}
-
-              <p className="text-center mb-0">
-
-                Don't have an account?
-
-                {" "}
-
-                <Link to="/register">
-
-                  Register
-
                 </Link>
 
-              </p>
+                <Link
+                  to="/register"
+                  style={{
+                    color: "#60a5fa",
+                    textDecoration: "none",
+                  }}
+                >
+                  Register
+                </Link>
+
+              </div>
 
             </form>
 
           </div>
 
         </div>
-
       </div>
-
     </div>
-  );
+  </div>
+);
 }
-
 export default Login;
