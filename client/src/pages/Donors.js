@@ -1,8 +1,8 @@
 import React, {
-  useEffect,
   useState,
+  useEffect,
+  useCallback,
 } from "react";
-
 import axios from "axios";
 
 import MainLayout from "../layouts/MainLayout";
@@ -112,7 +112,7 @@ function Donors() {
   // GET DONORS
   // =========================
 
-  const getDonors = async () => {
+  const getDonors = useCallback(async () => {
 
     try {
 
@@ -142,7 +142,7 @@ function Donors() {
       );
 
     }
-  };
+}, [token]);
 
   // =========================
   // DELETE DONOR
@@ -288,13 +288,9 @@ function Donors() {
   // =========================
   // USE EFFECT
   // =========================
-
-  useEffect(() => {
-
-    getDonors();
-
-  }, []);
-
+useEffect(() => {
+  getDonors();
+}, [getDonors]);
   return (
 
     <MainLayout>
