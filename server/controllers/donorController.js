@@ -84,7 +84,7 @@ const addDonorController =
       // create donor
 
       const donor = new Donor({
-        userId: req.body.userId,
+        userId: req.user._id,
         name,
         bloodGroup,
         age,

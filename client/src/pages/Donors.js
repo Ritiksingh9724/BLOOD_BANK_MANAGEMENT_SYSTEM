@@ -60,7 +60,6 @@ function Donors() {
       const res = await axios.post(
         "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/add-donor",
         {
-          userId: user._id,
           name,
           phone,
           bloodGroup,
