@@ -16,7 +16,7 @@ const ResetPassword = () => {
             try {
 
                 const res = await axios.post(
-                    "https://blood-management-system-ivmq.onrender.com/api/v1/auth/reset-password",
+                    "http://localhost:5000/api/v1/auth/reset-password",
                     {
                         email,
                         newPassword,

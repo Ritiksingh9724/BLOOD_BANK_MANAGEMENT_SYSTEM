@@ -3,7 +3,7 @@ const otpGenerator = require("otp-generator");
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const Hospital = require("../models/hospitalModel");
 // =========================
 // REGISTER
 // =========================
@@ -11,22 +11,25 @@ const jwt = require("jsonwebtoken");
 const registerController = async (req, res) => {
   try {
     const {
-      name,
-      email,
-      phone,
-      password,
-      role,
-    } = req.body;
+  name,
+  email,
+  phone,
+  password,
+  role,
+  address,
+  profileImage,
+} = req.body;
     if (
       !name ||
       !email ||
       !phone ||
       !password ||
-      !role
+      !role ||
+      (role === "hospital" && !address)
     ) {
       return res.status(400).send({
         success: false,
-        message: "Please Provide All Fields",
+        message: "Please provide all required fields",
       });
     }
 
@@ -41,14 +44,22 @@ const registerController = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await new User({
-      name,
-      email,
-      phone,
-      password: hashedPassword,
-      role,
-    }).save();
-
+   const user = await new User({
+  name,
+  email,
+  phone,
+  password: hashedPassword,
+  role,
+  profileImage,
+}).save();
+    if (role === "hospital") {
+      await new Hospital({
+        hospitalName: name,
+        email,
+        phone,
+        address,
+      }).save();
+    }
     res.status(201).send({
       success: true,
       message: "Registration Successful",
@@ -257,17 +268,24 @@ const loginController = async (req, res) => {
 const updateProfileController = async (req, res) => {
   try {
 
-    const { id, name, email, phone } = req.body;
+   const {
+  id,
+  name,
+  email,
+  phone,
+  profileImage,
+} = req.body;
 
     const user = await User.findByIdAndUpdate(
-  id,
-  {
-    name,
-    email,
-    phone,
-  },
-  { new: true }
-);
+      id,
+    {
+  name,
+  email,
+  phone,
+  profileImage,
+},
+      { new: true }
+    );
 
     res.status(200).send({
       success: true,

@@ -1,12 +1,6 @@
-import React, {
-  useContext,
-  useState,
-} from "react";
-
-import {
-  Link,
-  useLocation,
-} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import {
   FaHome,
@@ -17,42 +11,30 @@ import {
   FaClipboardList,
   FaChartBar,
   FaMoon,
+  FaSun,
   FaHeartbeat,
   FaBars,
   FaTimes,
   FaSignOutAlt,
 } from "react-icons/fa";
 
-import {
-  ThemeContext,
-} from "../context/ThemeContext";
+import "../styles/sidebar.css";
+import { ThemeContext } from "../context/ThemeContext";
 
 function Sidebar() {
 
-  const location =
-    useLocation();
+  const location = useLocation();
 
-  // current user
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  const user = JSON.parse(
-    localStorage.getItem("user")
-  );
-
-  // dark mode
-
-  const {
-    darkMode,
-    setDarkMode,
-  } = useContext(
-    ThemeContext
-  );
-
-  // mobile sidebar
-
-  const [open, setOpen] =
-    useState(false);
-
-  // menu items
+  const { darkMode, setDarkMode } = useContext(ThemeContext);
+<button
+    className="theme-btn"
+    onClick={() => setDarkMode(!darkMode)}
+>
+    {darkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
+</button>
+  const [open, setOpen] = useState(false);
 
   const menuItems = [
 
@@ -68,221 +50,175 @@ function Sidebar() {
       icon: <FaUser />,
     },
 
-    // donor pages
-
-    ...(user?.role === "donor" ||
-
-      user?.role === "admin"
-
+    ...(user?.role === "donor" || user?.role === "admin"
       ? [
-
-          {
-            name: "Donors",
-            path: "/donors",
-            icon: <FaUsers />,
-          },
-
-          {
-            name: "Inventory",
-            path: "/inventory",
-            icon: <FaTint />,
-          },
-
-        ]
-
+        {
+          name: "Donors",
+          path: "/donors",
+          icon: <FaUsers />,
+        },
+        {
+          name: "Inventory",
+          path: "/inventory",
+          icon: <FaTint />,
+        },
+      ]
       : []),
 
-    // hospital pages
-
-    ...(user?.role === "hospital" ||
-
-      user?.role === "admin"
-
+    ...(user?.role === "hospital" || user?.role === "admin"
       ? [
-
-          {
-            name: "Requests",
-            path: "/requests",
-            icon: <FaClipboardList />,
-          },
-
-        ]
-
+        {
+          name: "Requests",
+          path: "/requests",
+          icon: <FaClipboardList />,
+        },
+      ]
       : []),
-
-    // admin pages
 
     ...(user?.role === "admin"
-
       ? [
-
-          {
-            name: "Analytics",
-            path: "/analytics",
-            icon: <FaChartBar />,
-          },
-
-          {
-            name: "Availability",
-            path: "/availability",
-            icon: <FaHeartbeat />,
-          },
-
-          {
-            name: "Hospitals",
-            path: "/hospitals",
-            icon: <FaHospital />,
-          },
-
-        ]
-
+        {
+          name: "Hospitals",
+          path: "/hospitals",
+          icon: <FaHospital />,
+        },
+        {
+          name: "Analytics",
+          path: "/analytics",
+          icon: <FaChartBar />,
+        },
+        {
+          name: "Availability",
+          path: "/availability",
+          icon: <FaHeartbeat />,
+        },
+      ]
       : []),
 
   ];
 
-  // logout
-
-  const handleLogout = () => {
+  const logout = () => {
 
     localStorage.removeItem("token");
-
     localStorage.removeItem("user");
 
-    window.location.href =
-      "/login";
+    window.location.replace("/login");
 
   };
 
   return (
 
-    <>
+    <>{/* Mobile Header */}
 
-      {/* mobile navbar */}
+      <div className="d-md-none d-flex justify-content-between align-items-center p-3 bg-danger text-white">
 
-      <div
-        className="d-md-none d-flex justify-content-between align-items-center p-3 bg-danger text-white"
-      >
+        <div className="d-flex align-items-center">
 
-        <h4 className="mb-0 fw-bold">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2966/2966485.png"
+            alt="logo"
+            width="45"
+            className="me-2"
+          />
 
-          Blood Bank
+          <h5 className="mb-0 fw-bold">
+            Blood Bank
+          </h5>
 
-        </h4>
+        </div>
 
         <button
           className="btn btn-light"
-          onClick={() =>
-            setOpen(!open)
-          }
+          onClick={() => setOpen(!open)}
         >
-
-          {
-            open
-              ? <FaTimes />
-              : <FaBars />
-          }
-
+          {open ? <FaTimes /> : <FaBars />}
         </button>
 
       </div>
 
-      {/* sidebar */}
-
-      <div
-        className={`p-3 d-flex flex-column justify-content-between
-
-        ${
-          darkMode
-            ? "bg-black text-white"
-            : "bg-dark text-white"
-        }
-
-        ${
-          open
-            ? "d-block"
-            : "d-none d-md-flex"
-        }`}
-        style={{
-          width: "250px",
-          minHeight: "100vh",
-        }}
+      <motion.div
+        initial={{ x: -80, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className={`sidebar ${open ? "d-block" : "d-none d-md-flex"
+          } d-flex flex-column justify-content-between`}
       >
-
-        {/* top section */}
 
         <div>
 
-          <h2 className="mb-5 text-center fw-bold d-none d-md-block">
+          <div className="sidebar-logo">
 
-            Blood Bank
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/2966/2966485.png"
+              alt="logo"
+            />
 
-          </h2>
+            <h3>Blood Bank</h3>
 
-          {
-            menuItems.map((item) => (
+            <small>Management System</small>
+
+          </div>
+
+          <div className="user-card">
+
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+              alt="user"
+            />
+
+            <h5>{user?.name}</h5>
+
+            <p className="text-capitalize">
+              {user?.role}
+            </p>
+
+          </div>
+
+          <div className="menu">
+
+            {menuItems.map((item) => (
 
               <Link
                 key={item.path}
                 to={item.path}
-                onClick={() =>
-                  setOpen(false)
-                }
-                className={`d-flex align-items-center text-decoration-none p-3 mb-3 rounded
-
-                ${
-                  location.pathname === item.path
-                    ? "bg-danger text-white"
-                    : "text-white"
-                }`}
+                onClick={() => setOpen(false)}
+                className={`menu-item ${location.pathname === item.path ? "active" : ""
+                  }`}
               >
+                {item.icon}
 
-                <span className="me-3">
-
-                  {item.icon}
-
-                </span>
-
-                <span>
-
-                  {item.name}
-
-                </span>
+                <span>{item.name}</span>
 
               </Link>
 
-            ))
-          }
+            ))}
 
-        </div>
+          </div>
 
-        {/* bottom section */}
-
-        <div>
-
-          {/* dark mode */}
+        </div>      <div className="bottom-menu">
 
           <button
-            className="btn btn-secondary w-100 mb-3"
-            onClick={() =>
-              setDarkMode(!darkMode)
-            }
+            className="theme-btn"
+            onClick={() => setDarkMode(!darkMode)}
           >
 
-            <FaMoon className="me-2" />
-
-            {
-              darkMode
-                ? "Light Mode"
-                : "Dark Mode"
-            }
+            {darkMode ? (
+              <>
+                <FaSun className="me-2" />
+                Light Mode
+              </>
+            ) : (
+              <>
+                <FaMoon className="me-2" />
+                Dark Mode
+              </>
+            )}
 
           </button>
 
-          {/* logout */}
-
           <button
-            className="btn btn-danger w-100"
-            onClick={handleLogout}
+            className="logout-btn"
+            onClick={logout}
           >
 
             <FaSignOutAlt className="me-2" />
@@ -291,13 +227,31 @@ function Sidebar() {
 
           </button>
 
+          <div
+            style={{
+              marginTop: "25px",
+              textAlign: "center",
+              fontSize: "13px",
+              opacity: ".8",
+            }}
+          >
+
+            ❤️ Blood Management System
+
+            <br />
+
+            Version 2.0
+
+          </div>
+
         </div>
 
-      </div>
+      </motion.div>
 
     </>
 
   );
+
 }
 
 export default Sidebar;

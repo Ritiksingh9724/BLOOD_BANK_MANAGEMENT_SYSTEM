@@ -60,7 +60,7 @@ function Donors() {
       const res =
         await axios.post(
 
-          "https://blood-management-system-ivmq.onrender.com/api/v1/donor/add-donor",
+          "http://localhost:5000/api/v1/donor/add-donor",
 
           {
             name,
@@ -117,7 +117,7 @@ function Donors() {
       const res =
         await axios.get(
 
-          "https://blood-management-system-ivmq.onrender.com/api/v1/donor/all-donors"
+          "http://localhost:5000/api/v1/donor/all-donors"
         );
 
       if (res.data.success) {
@@ -151,7 +151,7 @@ function Donors() {
         await axios.delete(
 
           `
-https://blood-management-system-ivmq.onrender.com/api/v1/donor/delete-donor/${id}`
+http://localhost:5000/api/v1/donor/delete-donor/${id}`
 
         );
 
@@ -253,17 +253,17 @@ https://blood-management-system-ivmq.onrender.com/api/v1/donor/delete-donor/${id
   // SEARCH
   // =========================
 
-  const filteredDonors =
-    donors.filter(
+  const filteredDonors = donors.filter((donor) =>
 
-      (donor) =>
+  donor.name?.toLowerCase().includes(search.toLowerCase()) ||
 
-        donor.name
-          .toLowerCase()
-          .includes(
-            search.toLowerCase()
-          )
-    );
+  donor.phone?.includes(search) ||
+
+  donor.bloodGroup?.toLowerCase().includes(search.toLowerCase()) ||
+
+  donor.city?.toLowerCase().includes(search.toLowerCase())
+
+);
 
   // =========================
   // PAGINATION

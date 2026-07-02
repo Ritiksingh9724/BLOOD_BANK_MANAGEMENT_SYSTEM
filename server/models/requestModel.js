@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 
 const requestSchema = new mongoose.Schema(
   {
+    hospitalId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+
     hospitalName: {
       type: String,
       required: true,
@@ -38,7 +44,4 @@ const requestSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model(
-  "Request",
-  requestSchema
-);
+module.exports = mongoose.model("Request", requestSchema);

@@ -23,7 +23,7 @@ function Analytics() {
     try {
 
       const res = await axios.get(
-        "https://blood-management-system-ivmq.onrender.com/api/v1/inventory/all-inventory"
+        "http://localhost:5000/api/v1/inventory/all-inventory"
       );
 
       if (res.data.success) {

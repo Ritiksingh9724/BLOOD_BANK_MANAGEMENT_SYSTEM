@@ -45,7 +45,7 @@ function Inventory() {
 
       const res = await axios.post(
 
-        "https://blood-management-system-ivmq.onrender.com/api/v1/inventory/add-inventory",
+        "http://localhost:5000/api/v1/inventory/add-inventory",
 
         {
 
@@ -99,7 +99,7 @@ function Inventory() {
 
       const res = await axios.get(
 
-        "https://blood-management-system-ivmq.onrender.com/api/v1/inventory/all-inventory"
+        "http://localhost:5000/api/v1/inventory/all-inventory"
       );
 
       if (res.data.success) {
@@ -133,7 +133,7 @@ function Inventory() {
         await axios.delete(
 
           `
-https://blood-management-system-ivmq.onrender.com/api/v1/inventory/delete-inventory/${id}`
+http://localhost:5000/api/v1/inventory/delete-inventory/${id}`
 
         );
 

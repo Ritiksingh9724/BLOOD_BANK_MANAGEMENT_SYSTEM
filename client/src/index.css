@@ -1,13 +1,265 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ===========================
+   GLOBAL STYLES
+=========================== */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto",
+    "Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans",
+    "Helvetica Neue",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  background:#f5f6fa;
+  color:#212529;
+}
+
+code{
+  font-family:
+    source-code-pro,
+    Menlo,
+    Monaco,
+    Consolas,
+    "Courier New",
     monospace;
+}
+
+a{
+  text-decoration:none;
+}
+
+button{
+  outline:none;
+}
+
+input,
+select,
+textarea{
+  outline:none !important;
+  box-shadow:none !important;
+}
+
+.card{
+  border:none !important;
+  border-radius:18px !important;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-2px);
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#d32f2f;
+  border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+  background:#f5f5f5;
+}
+
+/* ===========================
+   DARK MODE
+=========================== */
+
+.dark-content{
+  background:#1f2328;
+  min-height:100vh;
+}
+
+.dark-content .card{
+  background:#343a40 !important;
+  color:#ffffff !important;
+}
+
+.dark-content h1,
+.dark-content h2,
+.dark-content h3,
+.dark-content h4,
+.dark-content h5,
+.dark-content h6{
+  color:#ffffff !important;
+}
+
+.dark-content p,
+.dark-content span,
+.dark-content small,
+.dark-content label{
+  color:#d1d5db !important;
+}
+
+/* Inputs */
+
+.dark-content input,
+.dark-content textarea,
+.dark-content select{
+  background:#ffffff !important;
+  color:#212529 !important;
+  border:1px solid #ced4da !important;
+}
+
+/* Tables */
+
+.dark-content table{
+  background:#343a40;
+}
+
+.dark-content table thead th{
+  background:#212529 !important;
+  color:#ffffff !important;
+}
+
+.dark-content table tbody td{
+  color:#ffffff !important;
+  background:#343a40 !important;
+}
+
+/* Progress */
+
+.dark-content .progress{
+  background:#495057;
+}
+
+/* Bootstrap */
+
+.dark-content .text-muted{
+  color:#c7c7c7 !important;
+}
+
+/* Dropdown */
+
+.dark-content .dropdown-menu{
+  background:#343a40;
+}
+
+.dark-content .dropdown-item{
+  color:#ffffff;
+}
+
+.dark-content .dropdown-item:hover{
+  background:#495057;
+}
+
+/* Buttons */
+
+.dark-content .btn-light{
+  background:#ffffff;
+}
+
+.dark-content .btn-danger{
+  background:#dc3545;
+}
+
+/* ===========================
+   ANIMATION
+=========================== */
+
+.fade-in{
+  animation:fade .4s ease;
+}
+
+@keyframes fade{
+
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+/* ================= DARK MODE ================= */
+
+body.dark-mode{
+    background:#348296;
+    color:#f8fafc;
+    transition:0.3s;
+}
+
+/* Cards */
+
+body.dark-mode .card{
+    background:#1e293b;
+    color:white;
+    box-shadow:0 10px 25px rgba(0,0,0,.4);
+}
+
+/* Tables */
+
+body.dark-mode table{
+    color:white;
+}
+
+body.dark-mode .table{
+    background:#ffffff;
+}
+
+body.dark-mode .table thead{
+    background:#ffffff;
+    color:white;
+}
+
+body.dark-mode .table td,
+body.dark-mode .table th{
+    background:#ffffff;
+    color:white;
+    border-color:#374151;
+}
+
+/* Inputs */
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea{
+    background:#111827;
+    color:white;
+    border:1px solid #374151;
+}
+
+body.dark-mode input::placeholder{
+    color:#cbd5e1;
+}
+
+/* Buttons */
+
+body.dark-mode .btn-light{
+    background:#ffffff;
+    color:white;
+}
+
+/* White sections */
+
+body.dark-mode .container,
+body.dark-mode .container-fluid,
+body.dark-mode .bg-white{
+    background:#ffffff;
+}
+
+/* Headings */
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode p,
+body.dark-mode label{
+    color:white;
 }

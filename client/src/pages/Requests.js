@@ -30,7 +30,7 @@ function Requests() {
 
   const [requests, setRequests] =
     useState([]);
-
+  const [search, setSearch] = useState("");
   // ============================
   // CREATE REQUEST
   // ============================
@@ -43,7 +43,7 @@ function Requests() {
 
       const res = await axios.post(
 
-        "https://blood-management-system-ivmq.onrender.com/api/v1/request/create-request",
+        "http://localhost:5000/api/v1/request/create-request",
 
         {
           hospitalId: user._id,
@@ -94,7 +94,7 @@ function Requests() {
       const user = JSON.parse(localStorage.getItem("user"));
 
       const res = await axios.get(
-        `https://blood-management-system-ivmq.onrender.com/api/v1/request/get-requests?hospitalId=${user._id}&role=${user.role}`
+        `http://localhost:5000/api/v1/request/get-requests?hospitalId=${user._id}&role=${user.role}`
       );
 
       if (res.data.success) {
@@ -121,7 +121,7 @@ function Requests() {
         const res = await axios.put(
 
           `
-https://blood-management-system-ivmq.onrender.com/api/v1/request/update-status/${id}`,
+http://localhost:5000/api/v1/request/update-status/${id}`,
 
           { status }
 
@@ -154,7 +154,7 @@ https://blood-management-system-ivmq.onrender.com/api/v1/request/update-status/$
   const handlePayment = async (request) => {
     try {
       const res = await axios.post(
-        "https://blood-management-system-ivmq.onrender.com/api/v1/payment/create-order",
+        "http://localhost:5000/api/v1/payment/create-order",
         {
           units: Number(request.quantity),
         }
@@ -173,7 +173,7 @@ https://blood-management-system-ivmq.onrender.com/api/v1/request/update-status/$
         handler: async function () {
           try {
             await axios.put(
-              `https://blood-management-system-ivmq.onrender.com/api/v1/request/payment/${request._id}`
+              `http://localhost:5000/api/v1/request/payment/${request._id}`
             );
 
             toast.success("Payment Successful");
@@ -211,7 +211,29 @@ https://blood-management-system-ivmq.onrender.com/api/v1/request/update-status/$
     getRequests();
 
   }, []);
+const filteredRequests = requests.filter((request) =>
 
+  request.hospitalName
+    ?.toLowerCase()
+    .includes(search.toLowerCase()) ||
+
+  request.bloodGroup
+    ?.toLowerCase()
+    .includes(search.toLowerCase()) ||
+
+  request.status
+    ?.toLowerCase()
+    .includes(search.toLowerCase()) ||
+
+  request.paymentStatus
+    ?.toLowerCase()
+    .includes(search.toLowerCase()) ||
+
+  request.quantity
+    ?.toString()
+    .includes(search)
+
+);
   return (
 
     <MainLayout>
@@ -350,7 +372,17 @@ https://blood-management-system-ivmq.onrender.com/api/v1/request/update-status/$
           Request List
 
         </h4>
+        <div className="mb-4">
 
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search Hospital, Blood Group, Status, Payment..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+        </div>
         <div className="table-responsive">
 
           <table className="table table-bordered align-middle">
@@ -378,7 +410,7 @@ https://blood-management-system-ivmq.onrender.com/api/v1/request/update-status/$
               {
                 requests.length > 0 ? (
 
-                  requests.map((request) => (
+                  filteredRequests.map((request) => (
 
                     <tr key={request._id}>
 
@@ -490,7 +522,7 @@ https://blood-management-system-ivmq.onrender.com/api/v1/request/update-status/$
                                 className="btn btn-primary btn-sm"
                                 onClick={() => handlePayment(request)}
                               >
-                                Pay 
+                                Pay
                               </button>
 
                             )

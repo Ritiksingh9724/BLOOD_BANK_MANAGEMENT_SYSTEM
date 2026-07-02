@@ -15,7 +15,8 @@ const inventoryRoutes = require("./routes/inventoryRoutes");
 const hospitalRoutes = require("./routes/hospitalRoutes");
 const requestRoutes = require("./routes/requestRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
-
+const notificationRoutes =
+  require("./routes/notificationRoutes");
 // CONFIG
 dotenv.config();
 
@@ -59,6 +60,12 @@ app.use("/api/v1/request", requestRoutes);
 
 // Payment
 app.use("/api/v1/payment", paymentRoutes);
+
+//notification
+app.use(
+  "/api/v1/notification",
+  notificationRoutes
+);
 
 // ============================
 // PORT

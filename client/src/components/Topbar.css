@@ -1,0 +1,51 @@
+.topbar{
+    background:#ffffff;
+    transition:.3s;
+}
+
+.topbar-title{
+    color:#111827;
+    font-weight:700;
+}
+
+.topbar-date{
+    color:#6b7280;
+}
+
+/* ---------- DARK MODE ---------- */
+
+body.dark-mode .topbar{
+    background:#1e293b;
+}
+
+body.dark-mode .topbar-title{
+    color:#ffffff;
+}
+
+body.dark-mode .topbar-date{
+    color:#cbd5e1;
+}
+.topbar-btn{
+    width:45px;
+    height:45px;
+    border:none;
+    background:#f1f5f9;
+    color:#1f2937;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.3s;
+}
+
+.topbar-btn:hover{
+    background:#e2e8f0;
+}
+
+body.dark-mode .topbar-btn{
+    background:#334155;
+    color:#ffffff;
+}
+
+body.dark-mode .topbar-btn:hover{
+    background:#475569;
+}

@@ -12,16 +12,17 @@ const sendEmail = async (to, subject, text) => {
       },
     });
 
-    await transporter.verify();
+    const verify = await transporter.verify();
+    console.log("VERIFY:", verify);
     console.log("SMTP Connected");
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: process.env.EMAIL,
       to,
       subject,
       text,
     });
-
+    console.log(info);
     console.log("Email Sent Successfully");
   } catch (error) {
     console.log("EMAIL ERROR:");
