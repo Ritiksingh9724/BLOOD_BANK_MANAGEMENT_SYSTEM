@@ -1,38 +1,38 @@
 const nodemailer = require("nodemailer");
 
+const transporter = nodemailer.createTransport({
+  host: process.env.BREVO_HOST,
+  port: Number(process.env.BREVO_PORT),
+  secure: false,
+  auth: {
+    user: process.env.BREVO_LOGIN,
+    pass: process.env.BREVO_PASSWORD,
+  },
+});
+
 const sendEmail = async (to, subject, text) => {
   try {
-    console.log("Sending email...");
-    console.log("To:", to);
-    console.log("From:", process.env.EMAIL);
-    const transporter = nodemailer.createTransport({
-      host: "74.125.140.108", // Gmail SMTP IPv4
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-      tls: {
-        servername: "smtp.gmail.com",
-      },
-    });
+    console.log("Sending email to:", to);
 
-    const verify = await transporter.verify();
-    console.log("VERIFY:", verify);
+    // Check SMTP connection
+    await transporter.verify();
     console.log("SMTP Connected");
 
     const info = await transporter.sendMail({
-      from: process.env.EMAIL,
+      from: `"Blood Bank Management System" <${process.env.BREVO_EMAIL}>`,
       to,
       subject,
       text,
     });
-    console.log(info);
+
     console.log("Email Sent Successfully");
+    console.log(info.messageId);
+
+    return info;
   } catch (error) {
     console.log("EMAIL ERROR:");
     console.log(error);
+    throw error;
   }
 };
 
