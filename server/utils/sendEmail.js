@@ -1,37 +1,30 @@
-const nodemailer = require("nodemailer");
+const brevo = require("@getbrevo/brevo");
 
-const transporter = nodemailer.createTransport({
-  host: process.env.BREVO_HOST,
-  port: Number(process.env.BREVO_PORT),
-  secure: false,
-  auth: {
-    user: process.env.BREVO_LOGIN,
-    pass: process.env.BREVO_PASSWORD,
-  },
-});
+const apiInstance = new brevo.TransactionalEmailsApi();
+
+apiInstance.setApiKey(
+  brevo.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY
+);
 
 const sendEmail = async (to, subject, text) => {
   try {
-    console.log("Sending email to:", to);
-
-    // Check SMTP connection
-    await transporter.verify();
-    console.log("SMTP Connected");
-
-    const info = await transporter.sendMail({
-      from: `"Blood Bank Management System" <${process.env.BREVO_EMAIL}>`,
-      to,
+    const email = {
+      sender: {
+        name: "Blood Bank Management System",
+        email: process.env.BREVO_EMAIL,
+      },
+      to: [{ email: to }],
       subject,
-      text,
-    });
+      textContent: text,
+    };
 
-    console.log("Email Sent Successfully");
-    console.log(info.messageId);
+    const response = await apiInstance.sendTransacEmail(email);
 
-    return info;
+    console.log("Email Sent:", response.body);
   } catch (error) {
     console.log("EMAIL ERROR:");
-    console.log(error);
+    console.log(error.response?.body || error);
     throw error;
   }
 };
