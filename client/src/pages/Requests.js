@@ -118,11 +118,8 @@ function Requests() {
 
       try {
 
-        const res = await axios.put(
-
-          `
-https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/request/update-status/${id}`,
-
+       const res = await axios.put(
+  `https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/request/update-status/${id}`,
           { status }
 
         );
@@ -211,29 +208,29 @@ https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/request/up
     getRequests();
 
   }, []);
-const filteredRequests = requests.filter((request) =>
+  const filteredRequests = requests.filter((request) =>
 
-  request.hospitalName
-    ?.toLowerCase()
-    .includes(search.toLowerCase()) ||
+    request.hospitalName
+      ?.toLowerCase()
+      .includes(search.toLowerCase()) ||
 
-  request.bloodGroup
-    ?.toLowerCase()
-    .includes(search.toLowerCase()) ||
+    request.bloodGroup
+      ?.toLowerCase()
+      .includes(search.toLowerCase()) ||
 
-  request.status
-    ?.toLowerCase()
-    .includes(search.toLowerCase()) ||
+    request.status
+      ?.toLowerCase()
+      .includes(search.toLowerCase()) ||
 
-  request.paymentStatus
-    ?.toLowerCase()
-    .includes(search.toLowerCase()) ||
+    request.paymentStatus
+      ?.toLowerCase()
+      .includes(search.toLowerCase()) ||
 
-  request.quantity
-    ?.toString()
-    .includes(search)
+    request.quantity
+      ?.toString()
+      .includes(search)
 
-);
+  );
   return (
 
     <MainLayout>

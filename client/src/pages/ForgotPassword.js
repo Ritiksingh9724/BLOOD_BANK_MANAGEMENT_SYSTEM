@@ -7,13 +7,20 @@ const ForgotPassword = () => {
     const handleSendOTP = async (e) => {
         e.preventDefault();
 
-        await axios.post(
-            "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/auth/send-otp",
-            { email }
-        );
+        try {
+            const res = await axios.post(
+                "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/auth/send-otp",
+                { email }
+            );
 
-        localStorage.setItem("resetEmail", email);
-        window.location.href = "/verify-otp";
+            console.log(res.data);
+
+            localStorage.setItem("resetEmail", email);
+            window.location.href = "/verify-otp";
+        } catch (error) {
+            console.log(error.response?.data);
+            console.log(error);
+        }
     };
 
     return (

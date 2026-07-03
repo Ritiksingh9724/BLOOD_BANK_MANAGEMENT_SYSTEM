@@ -45,8 +45,8 @@ const createRequestController = async (req, res) => {
     // Email
 
     await sendEmail(
-      process.env.EMAIL,
-      "New Blood Request",
+    process.env.EMAIL,
+    "New Blood Request",
       `A new blood request has been created.
 
 Blood Group: ${bloodGroup}
@@ -132,16 +132,15 @@ const updateRequestStatusController = async (req, res) => {
 
     const { status } = req.body;
 
-    const updatedRequest =
-      await requestModel.findByIdAndUpdate(
-        req.params.id,
-        {
-          status,
-        },
-        {
-          new: true,
-        }
-      );
+    const updatedRequest = await requestModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        status,
+      },
+      {
+        new: true,
+      }
+    );
 
     // Notification to Hospital
 
@@ -157,14 +156,14 @@ const updateRequestStatusController = async (req, res) => {
 
     });
 
-    // Email
+    // ==========================================
+    // EMAIL TEMPORARILY DISABLED FOR TESTING
+    // ==========================================
 
+    /*
     await sendEmail(
-
       updatedRequest.email,
-
       "Blood Request Status Updated",
-
       `Your blood request status has been updated.
 
 Blood Group: ${updatedRequest.bloodGroup}
@@ -172,8 +171,8 @@ Blood Group: ${updatedRequest.bloodGroup}
 Quantity: ${updatedRequest.quantity}
 
 Status: ${status}`
-
     );
+    */
 
     res.status(200).send({
 
@@ -184,21 +183,17 @@ Status: ${status}`
     });
 
   } catch (error) {
+  console.log("========= UPDATE REQUEST ERROR =========");
+  console.error(error);
 
-    console.log(error);
-
-    res.status(500).send({
-
-      success: false,
-
-      message: "Error Updating Request",
-
-    });
-
-  }
+  res.status(500).send({
+    success: false,
+    message: "Error Updating Request",
+    error: error.message,
+  });
+}
 
 };
-
 // ============================
 // UPDATE PAYMENT STATUS
 // ============================

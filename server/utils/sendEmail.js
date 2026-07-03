@@ -1,32 +1,26 @@
-const axios = require("axios");
+const nodemailer = require("nodemailer");
+
+console.log("========== SEND EMAIL FILE LOADED ==========");
+console.log("EMAIL =", process.env.EMAIL);
+console.log("PASSWORD =", process.env.EMAIL_PASSWORD);
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
 
 const sendEmail = async (to, subject, text) => {
-  try {
-    const response = await axios.post(
-      "https://api.brevo.com/v3/smtp/email",
-      {
-        sender: {
-          name: "Blood Bank Management System",
-          email: process.env.BREVO_EMAIL,
-        },
-        to: [{ email: to }],
-        subject,
-        textContent: text,
-      },
-      {
-        headers: {
-          "api-key": process.env.BREVO_API_KEY,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  const info = await transporter.sendMail({
+    from: process.env.EMAIL,
+    to,
+    subject,
+    text,
+  });
 
-    console.log("Email Sent:", response.data);
-  } catch (error) {
-    console.log("EMAIL ERROR:");
-    console.log(error.response?.data || error.message);
-    throw error;
-  }
+  console.log(info.messageId);
 };
 
 module.exports = sendEmail;

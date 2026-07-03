@@ -1,5 +1,7 @@
-const express = require("express");
 const dotenv = require("dotenv");
+dotenv.config();
+
+const express = require("express");
 const colors = require("colors");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -16,7 +18,7 @@ const hospitalRoutes = require("./routes/hospitalRoutes");
 const requestRoutes = require("./routes/requestRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const notificationRoutes =
-  require("./routes/notificationRoutes");
+require("./routes/notificationRoutes");
 // CONFIG
 dotenv.config();
 

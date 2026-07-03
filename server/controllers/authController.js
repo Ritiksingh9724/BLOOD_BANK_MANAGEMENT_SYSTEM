@@ -11,14 +11,14 @@ const Hospital = require("../models/hospitalModel");
 const registerController = async (req, res) => {
   try {
     const {
-  name,
-  email,
-  phone,
-  password,
-  role,
-  address,
-  profileImage,
-} = req.body;
+      name,
+      email,
+      phone,
+      password,
+      role,
+      address,
+      profileImage,
+    } = req.body;
     if (
       !name ||
       !email ||
@@ -44,14 +44,14 @@ const registerController = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-   const user = await new User({
-  name,
-  email,
-  phone,
-  password: hashedPassword,
-  role,
-  profileImage,
-}).save();
+    const user = await new User({
+      name,
+      email,
+      phone,
+      password: hashedPassword,
+      role,
+      profileImage,
+    }).save();
     if (role === "hospital") {
       await new Hospital({
         hospitalName: name,
@@ -268,22 +268,22 @@ const loginController = async (req, res) => {
 const updateProfileController = async (req, res) => {
   try {
 
-   const {
-  id,
-  name,
-  email,
-  phone,
-  profileImage,
-} = req.body;
+    const {
+      id,
+      name,
+      email,
+      phone,
+      profileImage,
+    } = req.body;
 
     const user = await User.findByIdAndUpdate(
       id,
-    {
-  name,
-  email,
-  phone,
-  profileImage,
-},
+      {
+        name,
+        email,
+        phone,
+        profileImage,
+      },
       { new: true }
     );
 
