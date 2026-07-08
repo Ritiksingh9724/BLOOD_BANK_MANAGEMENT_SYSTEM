@@ -35,7 +35,7 @@ function Hospitals() {
 
       const res = await axios.post(
 
-        "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/hospital/create-hospital",
+        "http://localhost:5000/api/v1/hospital/create-hospital",
 
         {
           hospitalName,
@@ -75,7 +75,7 @@ function Hospitals() {
     try {
 
       const res = await axios.get(
-        "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/hospital/get-hospitals"
+        "http://localhost:5000/api/v1/hospital/get-hospitals"
       );
 
       if (res.data.success) {
