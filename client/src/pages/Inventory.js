@@ -45,7 +45,7 @@ function Inventory() {
 
       const res = await axios.post(
 
-        "http://localhost:5000/api/v1/inventory/add-inventory",
+        "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/inventory/add-inventory",
 
         {
 
@@ -99,7 +99,7 @@ function Inventory() {
 
       const res = await axios.get(
 
-        "http://localhost:5000/api/v1/inventory/all-inventory"
+        "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/inventory/all-inventory"
       );
 
       if (res.data.success) {
@@ -133,7 +133,7 @@ function Inventory() {
         await axios.delete(
 
           `
-http://localhost:5000/api/v1/inventory/delete-inventory/${id}`
+https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/inventory/delete-inventory/${id}`
 
         );
 

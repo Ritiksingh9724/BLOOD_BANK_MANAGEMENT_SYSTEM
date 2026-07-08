@@ -58,7 +58,7 @@ function Donors() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/v1/donor/add-donor",
+        "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/add-donor",
         {
           name,
           phone,
@@ -117,7 +117,7 @@ function Donors() {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/v1/donor/all-donors",
+        "https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/all-donors",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -151,7 +151,7 @@ function Donors() {
   const deleteDonor = async (id) => {
     try {
       const res = await axios.delete(
-        `http://localhost:5000/api/v1/donor/delete-donor/${id}`,
+        `https://blood-bank-management-system-backend-sotl.onrender.com/api/v1/donor/delete-donor/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
